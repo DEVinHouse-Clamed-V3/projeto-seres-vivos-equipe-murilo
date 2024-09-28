@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Text, SafeAreaView, FlatList } from "react-native";
+import { Text, SafeAreaView, FlatList, View, Image } from "react-native";
 import { globalStyles } from "../styles/global";
 import axios from "axios";
+import { Planta } from "../../assets/Planta";
 
 export default function Plantae() {
   const [plantas, setPlantas] = useState([]);
@@ -20,7 +21,10 @@ export default function Plantae() {
 
   return (
     <SafeAreaView style={globalStyles.container}>
-      <FlatList />
+      <FlatList
+        data={plantas}
+        renderItem={({ item }) => <Planta planta={item} />}
+      />
     </SafeAreaView>
   );
 }
