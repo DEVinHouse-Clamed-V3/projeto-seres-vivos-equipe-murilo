@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Text, SafeAreaView, FlatList, View, Image } from "react-native";
+import {
+  Text,
+  SafeAreaView,
+  FlatList,
+  View,
+  Image,
+  TextInput,
+  StyleSheet,
+} from "react-native";
 import { globalStyles } from "../styles/global";
 import axios from "axios";
 import { Planta } from "../../assets/Planta";
 
 export default function Plantae() {
   const [plantas, setPlantas] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const filterPlantas = plantas.filter((plantas) =>
+    plantas.name.toUpperCase().includes(search.toUpperCase())
+  );
 
   async function carregarDados() {
     try {
@@ -20,9 +33,11 @@ export default function Plantae() {
   }, []);
 
   return (
-    <SafeAreaView style={globalStyles.container}>
+    <SafeAreaView>
+      <TextInput value={search} onChangeText={setSearch} placeholder="Pesquisar um planta expecífica"/>
+
       <FlatList
-        data={plantas}
+        data={filterPlantas}
         renderItem={({ item }) => <Planta planta={item} />}
       />
     </SafeAreaView>
