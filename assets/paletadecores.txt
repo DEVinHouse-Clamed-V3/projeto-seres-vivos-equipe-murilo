@@ -1,0 +1,5 @@
+.color1 { #fcb404 }; //amarelo
+.color2 { #fcd585 }; //bege
+.color3 { #835d01 }; //marrom escuro
+.color4 { #976b01 }; //marrom
+.color5 { #f4f4ec }; //offwhite
