@@ -22,7 +22,7 @@ export default function Plantae() {
 
   async function carregarDados() {
     try {
-      const response = await axios.get(`http://192.168.0.23:3000/plantas?page=${page}&limit=${limit}`);
+      const response = await axios.get(`http://192.168.0.23:3000/plantas?_page=${page}&_limit=${limit}`);
       setPlantas((prevPlantas) => {
         const newPlantas = response.data.filter(
           newPlanta => !prevPlantas.some(prevPlanta => prevPlanta.id === newPlanta.id)
