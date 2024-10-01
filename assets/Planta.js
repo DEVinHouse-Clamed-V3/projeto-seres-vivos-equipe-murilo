@@ -1,41 +1,44 @@
 import React from "react";
 import { Text, View, Image } from "react-native";
+import { stylePlanta } from "../src/styles/stylePlanta";
 
 export function Planta({ planta }) {
   return (
-    <View>
+    <View style={stylePlanta.container}>
+
+      <Text style={stylePlanta.name}>{planta.name}</Text>
+
       <Image
         source={{ uri: planta.image }}
-        style={{ width: "100%", height: 200 }}
+        style={ stylePlanta.image }
       />
-      <Text>{planta.name}</Text>
 
       <View>
-        <Text>{planta.description}</Text>
+        <Text style={stylePlanta.description}>{planta.description}</Text>
       </View>
 
-      <View>
-        <Text>Alimentação:</Text>
+      <View style={stylePlanta.details}>
+      <Text style={stylePlanta.detailTitle}>Alimentação:</Text>
         <Text>{planta.nutrition}</Text>
       </View>
 
-      <View>
-        <Text>Tipo Celular:</Text>
+      <View style={stylePlanta.details}>
+      <Text style={stylePlanta.detailTitle}>Tipo Celular:</Text>
         <Text>{planta.cellType}</Text>
       </View>
 
-      <View>
-        <Text>Organização Celular:</Text>
+      <View style={stylePlanta.details}>
+      <Text style={stylePlanta.detailTitle}>Organização Celular:</Text>
         <Text>{planta.cellOrganization}</Text>
       </View>
 
-      <View>
-        <Text>Reprodução:</Text>
+      <View style={stylePlanta.details}>
+      <Text style={stylePlanta.detailTitle}>Reprodução:</Text>
         <Text>{planta.reproduction}</Text>
       </View>
 
-      <View>
-        <Text>Respiração:</Text>
+      <View style={stylePlanta.details}>
+        <Text style={stylePlanta.detailTitle}>Respiração:</Text>
         <Text>{planta.respiration}</Text>
       </View>
     </View>
