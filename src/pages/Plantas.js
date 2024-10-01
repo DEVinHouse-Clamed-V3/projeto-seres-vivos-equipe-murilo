@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, FlatList, TextInput } from "react-native";
+import { SafeAreaView, FlatList, TextInput } from "react-native";
 import axios from "axios";
 import { stylePlanta } from "../../src/styles/stylePlanta";
 import { Planta } from "../../assets/Planta";
@@ -7,6 +7,8 @@ import { Planta } from "../../assets/Planta";
 export default function Plantae() {
   const [plantas, setPlantas] = useState([]);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const limit = 2;
 
   const filterPlantas = plantas.filter(planta => 
     planta.name.toUpperCase().includes(search.toUpperCase()) ||
@@ -16,13 +18,18 @@ export default function Plantae() {
     planta.cellOrganization.toUpperCase().includes(search.toUpperCase()) ||
     planta.reproduction.toUpperCase().includes(search.toUpperCase()) ||
     planta.respiration.toUpperCase().includes(search.toUpperCase())
-
   )
 
   async function carregarDados() {
     try {
-      const response = await axios.get("http://192.168.0.23:3000/plantas");
-      setPlantas(response.data);
+      const response = await axios.get(`http://192.168.0.23:3000/plantas?page=${page}&limit=${limit}`);
+      setPlantas((prevPlantas) => {
+        const newPlantas = response.data.filter(
+          newPlanta => !prevPlantas.some(prevPlanta => prevPlanta.id === newPlanta.id)
+        );
+        return [...prevPlantas, ...newPlantas];
+      });
+      setPage((prev) => prev + 1);
     } catch (error) {
       Alert.alert("Erro ao obter dados:", error);
     }
