@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, FlatList, TextInput } from "react-native";
+import { SafeAreaView, FlatList, TextInput, Alert } from "react-native";
 import axios from "axios";
 import { stylePlanta } from "../../src/styles/stylePlanta";
 import { Planta } from "../../assets/Planta";
@@ -52,6 +52,8 @@ export default function Plantae() {
         renderItem={({ item }) => <Planta planta={item} />}
         style={stylePlanta.list}
         showsVerticalScrollIndicator={false}
+        onEndReached={carregarDados}
+        onEndReachedThreshold={0.1}
       />
     </SafeAreaView>
   );
