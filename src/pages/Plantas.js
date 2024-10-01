@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  SafeAreaView,
-  FlatList,
-  View,
-  Image,
-  TextInput,
-  StyleSheet,
-} from "react-native";
-import { globalStyles } from "../styles/global";
+import { SafeAreaView, View, FlatList, TextInput } from "react-native";
 import axios from "axios";
+import { stylePlanta } from "../../src/styles/stylePlanta";
 import { Planta } from "../../assets/Planta";
 
 export default function Plantae() {
   const [plantas, setPlantas] = useState([]);
   const [search, setSearch] = useState("");
 
-  const filterPlantas = plantas.filter((plantas) =>
-    plantas.name.toUpperCase().includes(search.toUpperCase())
-  );
+  const filterPlantas = plantas.filter(planta => 
+    planta.name.toUpperCase().includes(search.toUpperCase()) ||
+    planta.description.toUpperCase().includes(search.toUpperCase()) ||
+    planta.nutrition.toUpperCase().includes(search.toUpperCase()) ||
+    planta.cellType.toUpperCase().includes(search.toUpperCase()) ||
+    planta.cellOrganization.toUpperCase().includes(search.toUpperCase()) ||
+    planta.reproduction.toUpperCase().includes(search.toUpperCase()) ||
+    planta.respiration.toUpperCase().includes(search.toUpperCase())
+
+  )
 
   async function carregarDados() {
     try {
@@ -33,12 +32,19 @@ export default function Plantae() {
   }, []);
 
   return (
-    <SafeAreaView>
-      <TextInput value={search} onChangeText={setSearch} placeholder="Pesquisar um planta expecífica"/>
+    <SafeAreaView style={stylePlanta.safe}>
+      <TextInput
+        style={stylePlanta.input}
+        value={search}
+        onChangeText={setSearch}
+        placeholder="Pesquisar..."
+      />
 
       <FlatList
         data={filterPlantas}
         renderItem={({ item }) => <Planta planta={item} />}
+        style={stylePlanta.list}
+        showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>
   );
